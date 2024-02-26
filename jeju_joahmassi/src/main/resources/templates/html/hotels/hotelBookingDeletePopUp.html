@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<style>
+	.modal-footer {
+    position: relative;
+    top: 20px; /* 아래로 이동할 거리 */
+	}
+	
+	.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	}
+
+	.form-check {
+    margin-bottom: 10px; /* 원하는 만큼의 간격으로 조절 */
+	}
+	
+	@font-face {
+			    font-family: 'SCDream5';
+			    src: url("assets/fonts/SCDream5.otf") format("truetype");
+			    font-weight: normal;
+			    font-style: normal;
+			}
+			
+	h4, input, label, button {
+		font-family: 'SCDream5';
+		font-size: 23px;
+	}
+
+</style>
+
+<script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+
+<body>
+	<div class="modal fade" id="deleteModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- 모달 헤더 -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">예약취소 사유</h4>
+                                            <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                        </div>
+                                   <!-- 회원탈퇴 모달 본문 -->
+                                        <div class="modal-body">
+                                            <form id="deleteReasonForm">
+												<div hidden th:data-hbNo="${hbNo}"></div>
+                                                <!-- 탈퇴 이유 선택 -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reason" id="reason1" value="Not satisfied">
+                                                    <label class="form-check-label" for="reason1">방문불가 / 여행취소</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reason" id="reason2" value="Found alternative">
+                                                    <label class="form-check-label" for="reason2">타 서비스에서 더 싼 상품발견</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reason" id="reason3" value="Found alternative">
+                                                    <label class="form-check-label" for="reason3">다시예약_같은숙소 일정 / 객실변경</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reason" id="reason4" value="Found alternative">
+                                                    <label class="form-check-label" for="reason4">다시예약_ 다른숙소로 변경</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reason" id="reason5" value="Found alternative">
+                                                    <label class="form-check-label" for="reason5">결제수단변경 / 쿠폰사용</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reason" id="reason6" value="Found alternative">
+                                                    <label class="form-check-label" for="reason6">업체요청</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reason" id="reason7" value="Found alternative">
+                                                    <label class="form-check-label" for="reason7">단순변심</label>
+                                                </div>
+                                                <!-- ... 다른 이유들도 추가 가능 ... -->
+                                            </form>
+                                        </div>
+                  
+                            
+                          
+                            
+                                        <!-- 모달 푸터 -->
+                                        <div class="modal-footer">
+                                            <button  type="button" class="btn btn-danger hotelBookingDeleteButton" onclick="hotelBookingDeleteButton(event)" id="confirmDelete" name="confirmDelete">확인</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            
+                            <script>
+								function ajaxRequest(method, url, sendJsonObject) {
+										let returnResultJsonObject = {};
+										$.ajax({
+											async: false,
+											method: method,
+											url: url,
+											contentType: 'application/json;UTF-8',
+											data: JSON.stringify(sendJsonObject),
+											type: 'json',
+											success: function (resultJsonObject) {
+												returnResultJsonObject = resultJsonObject;
+											}
+										});
+										return returnResultJsonObject;
+									}
+									
+									function hotelBookingDeleteButton (e) {
+										let bookingNo = document.querySelector('div[data-hbNo]').getAttribute('data-hbNo');
+										
+										let send = {
+											hbNo : bookingNo
+										}
+										
+										if (confirm('예약을 취소 하시겠습니까?')) {
+											let response = ajaxRequest('delete', 'hotelBooking/delete', send);
+											alert('예약이 취소되었습니다.');
+											self.close();
+											opener.document.querySelector('.hbNo' + bookingNo).parentElement.remove();
+										}
+									}
+							</script>  
+</body>
+</html>

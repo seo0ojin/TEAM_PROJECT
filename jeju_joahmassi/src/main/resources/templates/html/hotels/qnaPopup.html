@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	
+	<style>
+			body {
+			font-size: 22px; /* 원하는 폰트 크기로 조절하세요 */
+		}
+		
+		@font-face {
+		    font-family: 'SCDream5';
+		    src: url("assets/fonts/SCDream5.otf") format("truetype");
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
+		    font-family: 'Pak_Yong_jun_main';
+		    src: url("assets/fonts/Pak_Yong_jun_main.ttf") format("truetype");
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		h2, p, input, td, th, div, button, textarea {
+			font-family: 'SCDream5';
+		}
+			
+		.n-btn.btn-accent {
+	        background-color: #297cbb;
+	        /* 다른 스타일들도 필요하다면 여기에 추가할 수 있습니다. */
+	    }
+	</style>
+	
+	<script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+</head>
+
+<body>
+	<section class="n-qa-write-pop">
+		<header>
+			<h2>상품문의</h2>
+		</header>
+		<form name="qa_write_form" id="qa_write_form">
+			<input type="hidden" name="hotel_no" class="qnaHotelNo" value="3576086" th:value="${hotelNo}" />
+			<!--<input type="hidden" name="goods_sub" value="0" />-->
+			<!--<input type="hidden" name="user_no" class="qnaUserNo" value="" th:value="${hotelQnA.userNo}"/>-->
+			<input type="hidden" name="qa_no" value="" class="qnaNo" th:value="${hotelQnA.qnaNo}"/>
+			<!--<input type="hidden" name="similar_no" value="3033768" />-->
+			<div class="qa-product">
+				<div class="qa-product-img">
+					<img src="//image.msscdn.net/images/goods_img/20230920/3576086/3576086_16952636481568_125.jpg" th:src="@{assets/img/hotelImage/} + ${hotelImage}"
+						alt="스웨이드 클래식 XXI - 베이지:아이보리 / 374915-90" style="width: 500px; height: 400px; object-fit: cover;"/>
+				</div>
+				<div class="qa-product-info">
+					<!--<p class="qa-info-brand">푸마</p>-->
+					<p class="qa-info-name" th:text="${hotelName}">스웨이드 클래식 XXI - 베이지:아이보리 / 374915-90</p>
+					<!--<p class="box_price">
+						<span class="txt_origin_price">99,000원</span>
+						29,900
+						<span class="txt_unit_price">원</span>
+						<span class="payment_off qa_payment_off">70% SALE</span>
+					</p>-->
+				</div>
+
+			</div>
+			<table class="qa-write-table">
+				<tbody>
+					<!--<tr>
+						<th>문의유형</th>
+						<td class="qa-type-area">
+							<input type="radio" id="type_0" name="type" class="n-radio" value="1" /> <label
+								for="type_0">사이즈</label>
+							<input type="radio" id="type_1" name="type" class="n-radio" value="2" /> <label
+								for="type_1">배송</label>
+							<input type="radio" id="type_2" name="type" class="n-radio" value="3" /> <label
+								for="type_2">재입고</label>
+							<input type="radio" id="type_3" name="type" class="n-radio" value="99" /> <label
+								for="type_3">상품상세문의</label>
+						</td>
+					</tr>-->
+					<tr>
+						<th></th>
+						<td>
+							<!--<ul class="qa-comment" style="margin-top:-20px;">
+								<li>클레임(교환/환불/취소)관련 문의는</li>
+								<li><a href="/app/cs/counsel"
+										style="border-bottom: 1px solid #ddd;font-weight: bold;" target="_blank">마이페이지 >
+										1:1 문의</a>에서 문의 바랍니다.</li>
+							</ul>-->
+						</td>
+					</tr>
+
+					<!--<tr>
+						<th>문의옵션</th>
+						<td class="qa-type-area">
+							<div>
+								<select name="option1" id="option1" onchange="option2Disabled()" class="tit n-input">
+									<option value="">옵션 선택</option>
+									<option value="225">225</option>
+									<option value="230">230</option>
+									<option value="235">235</option>
+									<option value="240">240</option>
+									<option value="245">245</option>
+									<option value="250">250</option>
+									<option value="255">255</option>
+									<option value="260">260</option>
+									<option value="265">265</option>
+									<option value="270">270</option>
+									<option value="275">275</option>
+									<option value="280">280</option>
+									<option value="285">285</option>
+									<option value="290">290</option>
+									<option value="295">295</option>
+									<option value="300">300</option>
+								</select>
+							</div>
+
+
+						</td>
+					</tr>-->
+
+					<tr>
+						<th>제목</th>
+						<td class="qa-title-area">
+							<input type="text" name="subject" class="tit n-input qnaTitle" maxlength="15" placeholder="15자 이내 입력"
+								value="" th:value="${hotelQnA.qnaTitle}" style="background-color: transparent;" disabled/>
+							<input type="checkbox" name="is_secret" id="secretChk" onclick="checkBoxClick(event)" class="n-check" value="0" check="false"/>
+							<label for="secretChk">비밀글</label>
+						</td>
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td class="qa-title-area">
+							<input type="text" name="userName" class="tit n-input qnaUserName" maxlength="10" placeholder="10자 이내 입력"
+								value="" th:value="${hotelQnA.qnaName}" style="background-color: transparent;" disabled/>
+						</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td class="qa-subject-area">
+							<textarea name="question" class="qnaContent" rows="15" cols="58" placeholder="내용 입력" style="resize: none; background-color: transparent;" th:text="${hotelQnA.qnaContent}" disabled></textarea>
+							<!--<div class="upload-button">
+								<ul class="file_show" id="file_show">
+								</ul>
+								<button type="button" class="btn-file" onclick="$('#Filedata').click();"><i
+										class="ic-18-line-plus"></i></button>
+								<span id="file_message" style="display: none;color: red;font-weight: bold;"></span>
+							</div>-->
+						</td>
+					</tr>
+					<tr class="answerContentHtml" check="false">
+						
+					</tr>
+					<!--<tr>
+						<td colspan="2" class="comment-td">
+							<ul class="qa-comment">
+								<li>파일명에 한글, 영문, 숫자를 제외한 특수문자 및 공백이 사용된 경우 파일 첨부가 되지 않습니다.</li>
+								<li>이미지 크기가 2MB를 초과 시 업로드되지 않습니다.</li>
+							</ul>
+						</td>
+					</tr>-->
+				</tbody>
+			</table>
+		</form>
+
+		<!--<dl class="qa-info-area">
+			<dt>상품문의 안내</dt>
+			<dd>
+				<ul class="qa-comment">
+					<li>상품문의는 재입고, 사이즈, 배송 등 상품에 대하여 브랜드 담당자에게 문의하는 게시판입니다.</li>
+					<li><strong>욕설, 비방, 거래 글, 분쟁 유발, 명예훼손, 허위사실 유포, 타 쇼핑몰 언급,광고성 등의 부적절한 게시글은 금지합니다. 더불어 상품 문의 시 비밀글만
+							작성되도록 제한됩니다.</strong></li>
+					<li><strong>주문번호, 연락처, 계좌번호 등의 개인 정보 관련 내용은 공개되지 않도록 비밀글로 문의해 주시기 바랍니다.</strong> 공개된 글은 비밀글로 전환될 수
+						있으며, 개인 정보 노출로 인한 피해는 무신사 스토어가 책임지지 않습니다.</li>
+				</ul>
+			</dd>
+		</dl>-->
+		<div class="qa-btn-area">
+			<!--<a href="javascript:void(0)" class="n-btn btn-lighter" onClick="location.reload(); return false;">취소</a>-->
+			<button class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0 hotelQnaInsertBtn" onclick="hotelQnaInsert(event)" th:if="${hotelQnA.qnaNo == 0 or hotelQnA.userinfo.userNo == userNo}">등록</button>
+			<button class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0 hotelQnaUpdateFormBtn" onclick="hotelQnaUpdateFormBtn(event)" th:if="${hotelQnA.qnaNo != 0 and hotelQnA.userinfo.userNo == userNo}">수정</button>
+			<button class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0 hotelQnaDeleteBtn" onclick="hotelQnaDeleteBtn(event)" th:if="${(hotelQnA.qnaNo != 0 and hotelQnA.userinfo.userNo == userNo) or (userId == 'admin') }">삭제</button>
+			<button class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0 hotelQnaAnswerBtn" onclick="hotelQnaAnswerBtn(event)" th:if="${userId} == 'admin'">답변</button>
+		</div>
+	</section>
+	
+	<script>
+		function ajaxRequest(method, url, sendJsonObject) {
+				let returnResultJsonObject={};
+				$.ajax({
+					async:false,
+					method: method,
+					url: url,
+					contentType: 'application/json;UTF-8',
+					data: JSON.stringify(sendJsonObject),
+					type: 'json',
+					success: function(resultJsonObject) {
+						returnResultJsonObject = resultJsonObject;
+					}
+				});
+				return returnResultJsonObject;
+			}
+		
+		/*************************** 비밀글 체크박스 ****************************/
+		function checkBoxClick (e) {
+				if (e.target.id == 'secretChk') {
+					let check = e.target.getAttribute('check');
+					if (check == 'false') {
+						e.target.setAttribute('check', true);
+						e.target.value = 1;
+					} else {
+						e.target.setAttribute('check', false);
+						e.target.value = 0;
+					}
+				}
+			}
+			
+		/*************************** qna 등록 ****************************/
+		function hotelQnaInsert (e) {
+			let hotelNo = $('.qnaHotelNo').val();
+			let qnaNo = $('.qnaNo').val();
+			let qnaTitle = $('.qnaTitle').val();
+			let qnaContent = $('.qnaContent').val();
+			let qnaUserName = $('.qnaUserName').val();
+			let qnaSecretCheck = $('#secretChk').val();
+			
+			if((qnaTitle=='')||(qnaContent=='')) {
+				if(qnaTitle==''){
+					alert('제목을 입력해주세요.');
+				}
+				if(qnaContent==''){
+					alert('내용을 입력해주세요.');
+				}
+			}else{
+				let send = {
+					hotelNo : hotelNo,
+					qnaNo : qnaNo,
+					qnaTitle : qnaTitle,
+					qnaContent : qnaContent,
+					qnaName : qnaUserName,
+					qnaSecretCheck : qnaSecretCheck,
+					qnaStatus : 0
+				}
+				
+				let response = ajaxRequest('post', 'hotelQnA/insert', send);
+				alert('문의가 등록되었습니다.');
+				self.close();
+				opener.location.reload();
+			}
+		}
+		
+		/*************************** qna 수정 버튼 클릭 ****************************/
+		function hotelQnaUpdateFormBtn (e) {
+			let qnaTitle = $('.qnaTitle');
+			let qnaContent = $('.qnaContent');
+			
+			$('.hotelQnaUpdateFormBtn').attr('disabled', true);
+			
+			qnaTitle.removeAttr('disabled');
+			qnaContent.removeAttr('disabled');
+		}
+		
+		/*************************** qna 삭제 ****************************/
+		function hotelQnaDeleteBtn (e) {
+			let qnaNo = $('.qnaNo').val();
+			let send = {
+				qnaNo : qnaNo
+			}
+			if (confirm('삭제 하시겠습니까?')) {
+				let response = ajaxRequest('delete', 'hotelQnA/delete', send);
+				alert('삭제되었습니다.');
+				self.close();
+				opener.location.reload();
+			}
+		}
+		
+		function hotelQnaAnswerBtn(e){
+			var check = $('.answerContentHtml').attr('check');
+			let html = `<th>답변</th>
+						<td class="qa-subject-area">
+							<textarea name="question" class="answerContent" rows="15" cols="58" placeholder="내용 입력" style="resize: none; background-color: transparent;"></textarea>
+						</td>`
+			let hotelNo = $('.qnaHotelNo').val();
+			let qnaNo = $('.qnaNo').val();
+			let qnaTitle = $('.qnaTitle').val();
+			let qnaContent = $('.qnaContent').val();
+			let qnaUserName = $('.qnaUserName').val();
+			let qnaSecretCheck = $('#secretChk').val();
+			let qnaAnswer = $('.answerContent').val();
+			
+			let send = {
+				hotelNo : hotelNo,
+				qnaNo : qnaNo,
+				qnaTitle : qnaTitle,
+				qnaContent : qnaContent,
+				qnaName : qnaUserName,
+				qnaSecretCheck : qnaSecretCheck,
+				qnaStatus : 1,
+				qnaAnswer : qnaAnswer
+			}
+						
+			if(check == 'false'){
+				$('.answerContentHtml').html(html);
+				$('.answerContentHtml').attr('check',true);
+			}else{
+				alert('답변 등록완료');
+				let response = ajaxRequest('post', 'hotelQnA/answer', send);
+				self.close();
+				opener.location.reload();
+			}
+		}
+	</script>
+</body>
+
+</html>
